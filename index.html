@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" href="src/fonts/AgaveNerdFont-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="src/images/wallpaper1.webp" as="image" type="image/webp">
+  <link rel="preload" href="src/profile.json" as="fetch" crossorigin>
+  <link rel="preconnect" href="https://api.open-meteo.com">
   <link rel="stylesheet" href="src/css/style.css">
-  <link rel="shortcut icon" href="src/images/firefox_logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="src/images/firefox_logo.png" type="image/png">
+  <script src="src/js/index.js" defer></script>
   <title>Нова вкладка</title>
 </head>
 <body class="flex">
@@ -33,6 +38,5 @@
 
 <section class="section_right_bar"> </section>
 
-<script src="src/js/index.js"></script>
 </body>
 </html>

@@ -1,49 +1,36 @@
 async function getLinks() {
-    const database = await fetch('src/profile.json');
-    const data = await database.json();
+    const response = await fetch('src/profile.json');
+    const data = await response.json();
 
-    const categories = data.categories;
+    const tile = (name, item) =>
+        `<div><a href="${item.url}">${item.svg}<span>${name}</span></a></div>`;
 
-    for (let category in categories) {
-        let categoryContainer = document.createElement("div");
+    // збираємо все у фрагмент і додаємо в DOM один раз
+    const fragment = document.createDocumentFragment();
+
+    for (const category in data.categories) {
+        const categoryContainer = document.createElement("div");
         categoryContainer.className = "category_container";
 
-        let categoryTitle = document.createElement("span");
-        categoryTitle.innerText = `${category}`;
+        const categoryTitle = document.createElement("span");
+        categoryTitle.textContent = category;
 
-        let categoryGrid = document.createElement("div");
+        const categoryGrid = document.createElement("div");
         categoryGrid.className = "category_grid";
+        categoryGrid.innerHTML = Object.entries(data.categories[category])
+            .map(([site, item]) => tile(site, item))
+            .join("");
 
-        section_bottom_links.appendChild(categoryContainer);
         categoryContainer.append(categoryTitle, categoryGrid);
-
-        for (let site in categories[category]) {
-            let linkContainer = document.createElement("div");
-            linkContainer.innerHTML =   `
-                                        <a href="${categories[category][site].url}">
-                                            ${categories[category][site].svg}
-                                            <span>${site}</span>
-                                        </a>
-                                        `
-            categoryGrid.appendChild(linkContainer);
-            
-        };
-    };
-
-    const linksAI = data.toolsAI;
-
-    let toolsAI = document.querySelector(".section_right_bar");
-
-    for (let link in linksAI) {
-        let linkContainer = document.createElement("div");
-        linkContainer.innerHTML =   `
-                                    <a href="${linksAI[link].url}">
-                                        ${linksAI[link].svg}
-                                        <span>${link}</span>
-                                    </a>
-                                    `
-        toolsAI.appendChild(linkContainer);
+        fragment.appendChild(categoryContainer);
     }
+
+    document.getElementById("section_bottom_links").appendChild(fragment);
+
+    document.querySelector(".section_right_bar").innerHTML =
+        Object.entries(data.toolsAI)
+            .map(([name, item]) => tile(name, item))
+            .join("");
 }
 
 function currentDate() {
@@ -121,9 +108,8 @@ function currentTime() {
 
 
 
+getLinks();
 currentTime();
 currentDate();
-currentWeather();
-getLinks();
 
 setInterval(currentTime, 60000);

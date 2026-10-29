@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Agave Nerd Font";
-  src: url("../fonts/AgaveNerdFont-Regular.ttf") format("truetype");
+  src: url("../fonts/AgaveNerdFont-Regular.woff2") format("woff2");
   font-weight: 400;
   font-display: swap;
 }
@@ -95,7 +95,7 @@ body::before {
   content: "";
   position: fixed;
   inset: -20px;  
-  background: url("../images/wallpaper1.jpg") center / cover no-repeat;
+  background: url("../images/wallpaper1.webp") center / cover no-repeat;
   filter: blur(8px) brightness(0.5);
   z-index: -1;
 }
